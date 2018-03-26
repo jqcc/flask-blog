@@ -1,0 +1,35 @@
+<!-- 创建一个Bootstrap分页元素 即一个有特殊样式的无序列表 其中还定义了下述页面的连接 --> 
+<!-- "上一页"连接 如果当前是第一页则为这个链接加上disable样式 --> 
+<!-- 分页对象的iter_pages()迭代器返回的所有页面链接. 这些页面被渲染成具有明确页数的连接 页数在url_for中指定 
+        当前显示的页面使用activeCSS类高亮显示 页数列表中的间隔使用省略号表示 --> 
+<!-- "下一页"连接 如果当前是最后一页 则会禁用这个链接 --> 
+{# macro 为Jinja2的宏 #}
+{% macro pagination_widget(pagination, endpoint, fragment='') %}
+<ul class="pagination">
+    <li{% if not pagination.has_prev %} class="disabled"{% endif %}>
+        <a href="{% if pagination.has_prev %}{{ url_for(endpoint, page=pagination.page-1, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+            &laquo;
+        </a>
+    </li>
+    {% for p in pagination.iter_pages() %}
+        {% if p %}
+            {% if p == pagination.page %}
+            <li class="active">
+                <a href="{{ url_for(endpoint, page=p, **kwargs) }}{{ fragment }}">{{ p }}</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for(endpoint, page=p, **kwargs) }}{{ fragment }}">{{ p }}</a>
+            </li>
+            {% endif %}
+        {% else %}
+        <li class="disabled"><a href="#">&hellip;</a></li>
+        {% endif %}
+    {% endfor %}
+    <li{% if not pagination.has_next %} class="disabled"{% endif %}>
+        <a href="{% if pagination.has_next %}{{ url_for(endpoint, page=pagination.page+1, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+            &raquo;
+        </a>
+    </li>
+</ul>
+{% endmacro %}

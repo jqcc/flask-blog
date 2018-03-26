@@ -1,0 +1,38 @@
+{% extends "base.html" %} 
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1>
+</div>
+<div>
+    {% if current_user.can(Permission.WRITE_ARTICLES) %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+</div>
+<div class="post-tabs">
+    <ul class="nav nav-tabs">
+        <li{% if show_pages == 0 %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">所有文章</a></li>
+        {% if current_user.is_authenticated %}
+        <li{% if show_pages == 1 %} class="active"{% endif %}><a href="{{ url_for('.show_followed') }}">我的关注</a></li>
+        <li{% if show_pages == 2 %} class="active"{% endif %}><a href="{{ url_for('.show_myself') }}">我的文章</a></li>
+        {% endif %}
+    </ul>
+    {# 将重复使用的代码段提取成一个文件 使用include引入这段代码 #}
+    {% include '_posts.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {# 这里是怎么用的 #}
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}
