@@ -22,13 +22,13 @@
 
 #### 准备
 
-第一次运行程序时 需在命令行模式下创建数据库 将用户角色写入数据库中
+第一次运行程序时 需在命令行模式下创建数据库
 
 ``` bash
     $ python3 manage shell  # 进入命令行模式
     $ db.create_all()       # 创建数据库
-    $ Role.insert_roles()   # 插入角色
 ```
+以后每次安装或升级需执行自动部署任务
 
 #### 运行
 
@@ -80,7 +80,7 @@ Web REST架构 api服务:
 (必选):
 >MAIL\_USERNAME: smtp服务器账号\
 >MAIL\_PASSOWRD: smtp服务器密码\
->FLASKY\_ADMIN: 管理员邮箱(注册时自动成为管理员, 也可以通过shell设置role)\
+>FLASKY\_ADMIN: 管理员邮箱(注册时自动成为管理员, 也可以通过shell设置role)
 
 (可选):
 >SECRET\_KEY: 加密字符串\

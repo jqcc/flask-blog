@@ -1,3 +1,7 @@
+body {
+    background-image: url('blogbg.jpg');
+}
+
 .profile-thumbnail {
     position: absolute;
 }
