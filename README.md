@@ -25,7 +25,7 @@
 每次安装或升级程序时 需执行下列指令进行任务部署 建库等操作
 
 ``` bash
-    $ python3 manage deploy
+    $ python3 manage.py deploy
 ```
 
 #### 运行

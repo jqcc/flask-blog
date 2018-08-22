@@ -71,5 +71,6 @@
 {% block scripts %}
 {{ super() }}
 {{ moment.include_moment() }}
+<script type="application/javascript" src="{{ url_for('static', filename='love.js') }}"></script>
 {% endblock %}
 
